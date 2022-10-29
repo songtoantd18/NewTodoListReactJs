@@ -9,10 +9,13 @@ form {
   border: 1px solid black;
   width: 50vw;
   border-radius: 20px;
-  height: 25vh;
+  height: 125vh;
 }
 .result {
   background-color: #00ff00;
   color: red;
   border-radius: 10px;
+}
+.errors {
+  color: red;
 }
