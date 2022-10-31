@@ -67,6 +67,8 @@ const TodoFormFullFunction = () => {
       />
       <button onClick={handleSearch}>search</button>
       <hr />
+      <button>1</button>
+      <button>2</button>
 
       <form onSubmit={handleSubmit}>
         <h3>name</h3>

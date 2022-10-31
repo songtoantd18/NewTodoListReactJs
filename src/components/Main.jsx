@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from "react";
 import FormInput from "./FormInput";
+import Pagination from "./Pagination";
 
 const Main1 = () => {
+  const [pagination, setPagination] = useState({
+    page: 1,
+    limit: 10,
+    totalRows: 1,
+  });
+  const [filter, setFilter] = useState({
+    limit: 10,
+  });
   const result = {
     backgroundColor: "#00ff00",
     color: "red",
@@ -25,7 +34,6 @@ const Main1 = () => {
   const handleDelete = (index) => {
     console.log("index:", index);
     console.log("arrayValue:", arrayValue[index].id);
-
     const newContent = [...arrayValue];
     newContent.splice(index, 1);
     setArrayValue(newContent);
@@ -33,6 +41,9 @@ const Main1 = () => {
   const handleEdit = (index) => {
     console.log("index:", index);
   };
+  function handlePageChange(newPage) {
+    console.log("newPage:", newPage);
+  }
   const handleChange = (e) => {
     // console.log("content:", content);
     // const name = e.target.name;
@@ -45,11 +56,11 @@ const Main1 = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    console.log("arrayValue:", arrayValue);
     // const isValid = !Object.keys(formErrors).length;
     const isValid = Object.keys(formErrors).length;
-    console.log("Object.keys(formErrors):", Object.keys(formErrors));
-    console.log("isValid:", !!isValid);
+    // console.log("Object.keys(formErrors):", Object.keys(formErrors));
+    // console.log("isValid:", !!isValid);
 
     if (isValid === 0) {
       setArrayValue((prev) => {
@@ -68,7 +79,7 @@ const Main1 = () => {
     // console.log("formErrors:", formErrors);
     setIsSubmit(true);
     if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(content);
+      // console.log(content);
     }
   }, [content]);
   const validate = (values) => {
@@ -95,6 +106,7 @@ const Main1 = () => {
       <h1>to do list</h1>
       <pre>{JSON.stringify(content, undefined, 2)}</pre>
       <form onSubmit={handleSubmit}>
+        {/* cách làm theo props */}
         <FormInput
           type="text"
           nameLabel="name"
@@ -128,52 +140,8 @@ const Main1 = () => {
           errors={formErrors.works}
         />
         <button>submit</button>
-
-        {/* <label>name</label>
-        <input
-          type="text"
-          placeholder="nguyen song toan"
-          name="name"
-          onChange={handleChange}
-          value={content.name}
-        />
-        <p className="errors">{formErrors.name}</p>
-        <br />
-        <label>phone</label>
-        <input
-          type="number"
-          placeholder="04411222"
-          name="phone"
-          onChange={handleChange}
-          value={content.phone}
-        />
-        <p className="errors">{formErrors.phone}</p>
-
-        <br />
-        <label>email</label>
-        <input
-          type="text"
-          placeholder="st@gmail.com"
-          name="email"
-          onChange={handleChange}
-          value={content.email}
-        />
-        <p className="errors">{formErrors.email}</p>
-
-        <br />
-        <label>works</label>
-        <input
-          type="text"
-          placeholder="clear my  room"
-          name="works"
-          onChange={handleChange}
-          value={content.works}
-        />
-        <p className="errors">{formErrors.works}</p>
-
-        <br />
-        <button>submit</button> */}
       </form>
+      <Pagination pagination={pagination} onPageChange={handlePageChange} />
 
       {arrayValue.map((item, index) => {
         return (
